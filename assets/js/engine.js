@@ -8,8 +8,7 @@ const BLOG = {
         oBlogMardown: {
             title: 'Blog',
             description: 'Liste des articles Ad Vitam Æternam',
-            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg',
-            html: sHtml
+            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg'
         },
         oHomeMarkdown: {
             title: '',

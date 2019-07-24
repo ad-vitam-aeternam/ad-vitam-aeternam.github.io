@@ -151,8 +151,7 @@ th:hover, td:hover {
 /* Layout */
 .DS_Image {
 	flex: 1 1 auto;
-	/* background: url('https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')  center center / cover; */
-	background: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg") 62% center/cover;
+	background: url('https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg') center center / cover;
 	min-width: 0.8rem;
 	overflow: hidden;
     position: relative;
