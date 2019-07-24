@@ -25,11 +25,13 @@ const BLOG = {
     oMapData: {},
     hMain: null,
     hImage: null,
+    hLine: null,
 
     initialize: function(){
         this.oMarkdownIt = window.markdownit( this.oConfig.oMarkdownIt );
         this.hMain = document.getElementsByTagName('main')[0];
         this.hImage = document.getElementsByClassName('DS_Image')[0];
+        this.hLine = document.getElementsByClassName('DS_Footer__Text')[0];
         this.parseData();
         this.handleEventListener();
     },
@@ -71,28 +73,24 @@ const BLOG = {
     },
 
     goToBlog: function(){
-        let sHtml = '',
-            bFirst = true;
+        let sHtml = '';
 
         this.aData.forEach( (oData) => {
-            sHtml = this.createHTMLBlog(oData, bFirst) + sHtml;
-            bFirst = false;
+            sHtml = this.createHTMLBlog(oData) + sHtml;
         } );
-
-        sHtml = '<h1>Liste des articles</h1>' + sHtml;
         this.render( Object.assign( { html: sHtml }, this.oConfig.oBlogMardown) );
     },
 
     goTo: function(sCode){
-        this.loadMarkdown( this.aData[ this.oMapData[sCode] || -1 ] || this.oConfig.oHomeMarkdown ); 
+        const nIndex = this.oMapData[sCode];
+        this.loadMarkdown( this.aData[ nIndex == null ? -1 : nIndex ] || this.oConfig.oHomeMarkdown ); 
     },
 
-    createHTMLBlog: function(oData, bFirst){
-        return `<article>
-            <h2>${oData.title}</h2>
+    createHTMLBlog: function(oData){
+        return `<article class="DS_Article">
+            <h2><a href="?md=${oData.code}">${oData.title}</a></h2>
             <p>${oData.description}</p>
-            <a href="?md=${oData.code}" class="DS_Button --tiercary">Lire d'avantage</a>
-        </article>` + ( bFirst ? '' : '<hr/>' );
+        </article>`;
     },
 
     loadMarkdown: function(oMarkdown){
@@ -126,6 +124,7 @@ const BLOG = {
         document.descripton = oData.descripton;
         this.hImage.style.backgroundImage = "url('" + oData.image + "')";
         this.hMain.innerHTML = oData.html;
+        this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
     }
 };
 

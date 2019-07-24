@@ -314,3 +314,7 @@ th:hover, td:hover {
 .DS_Button.--secondary {
     border-color: #333;
 }
+
+.DS_Article {
+    margin: 5rem 0;
+}
