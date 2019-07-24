@@ -45,6 +45,9 @@ const BLOG = {
     handleEventListener: function(){
         window.addEventListener('click', (oEvent) => {
             if( oEvent.target && oEvent.target.tagName === 'A' && oEvent.target._target == null ){
+                oEvent.preventDefault();
+                oEvent.stopPropagation();
+
                 let oQuery = this.extractQueryObject(oEvent.target.search);
                 if( oQuery.md == 'blog' ){
                     this.goToBlog();
@@ -57,7 +60,7 @@ const BLOG = {
 
     extractQueryObject: function(sSearch){
         const oQuery = {},
-            aQuery = oEvent.target.search.substring(1).split('&');
+            aQuery = sSearch.substring(1).split('&');
 
         aQuery.forEach( (sQuery) => {
             let aData = sQuery.split('=');
