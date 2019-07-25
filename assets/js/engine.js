@@ -6,8 +6,8 @@ const BLOG = {
             breaks: true        // Convert '\n' in paragraphs into <br>
         },
         oBlogMardown: {
-            title: 'Blog',
-            description: 'Liste des articles Ad Vitam Æternam',
+            title: 'Pensées',
+            description: 'Liste des pensées Ad Vitam Æternam',
             image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg'
         },
         oHomeMarkdown: {
@@ -23,34 +23,42 @@ const BLOG = {
     oMarkdownIt: null,
     aData: null,
     oMapData: {},
+
     hMain: null,
     hImage: null,
     hLine: null,
+    hcNav: [],
 
     initialize: function(){
         this.oMarkdownIt = window.markdownit( this.oConfig.oMarkdownIt );
+        this.getHTMLElement();
+        this.parseData();
+        this.handleEventListener();
+    },
+
+    getHTMLElement: function(){
         this.hMain = document.getElementsByTagName('main')[0];
         this.hImage = document.getElementsByClassName('DS_Image')[0];
         this.hLine = document.getElementsByClassName('DS_Footer__Text')[0];
-        this.parseData();
-        this.handleEventListener();
+        this.hcNav = document.getElementsByClassName('DS_Nav__ItemLink');
     },
 
     parseData: function(){
         if( this.aData && Array.isArray(this.aData) ){
             this.aData.forEach( (oData, nIndex) => {
                 this.oMapData[ oData.code = oData.markdown.replace('.md', '') ] = nIndex;
-            } )
+            } );
         }
     },
 
     handleEventListener: function(){
         window.addEventListener('click', (oEvent) => {
-            if( oEvent.target && oEvent.target.tagName === 'A' && oEvent.target._target == null ){
+            const hTarget = oEvent.target
+            if( hTarget && hTarget.tagName === 'A' && hTarget._target == null && !hTarget.classList.contains('--inactive') ){
                 oEvent.preventDefault();
                 oEvent.stopPropagation();
 
-                let oQuery = this.extractQueryObject(oEvent.target.search);
+                let oQuery = this.extractQueryObject(hTarget.search);
                 if( oQuery.md == 'blog' ){
                     this.goToBlog();
                 } else {
@@ -74,22 +82,33 @@ const BLOG = {
 
     goToBlog: function(){
         let sHtml = '';
-
         this.aData.forEach( (oData) => {
             sHtml = this.createHTMLBlog(oData) + sHtml;
         } );
         this.render( Object.assign( { html: sHtml }, this.oConfig.oBlogMardown) );
+        this.activeNav(1);
     },
 
     goTo: function(sCode){
-        const nIndex = this.oMapData[sCode];
-        this.loadMarkdown( this.aData[ nIndex == null ? -1 : nIndex ] || this.oConfig.oHomeMarkdown ); 
+        const nIndex = this.oMapData[sCode],
+            oMarkdown = this.aData[ nIndex == null ? -1 : nIndex ] || this.oConfig.oHomeMarkdown;
+        this.loadMarkdown(oMarkdown); 
+        this.activeNav( oMarkdown.title ? 1 : 0);
+    },
+
+    activeNav: function(nNav){
+        [].forEach.call(this.hcNav, (hNav, nIndex) => {
+            hNav.classList[ nNav == nIndex ? 'add' : 'remove' ]('--active');
+        } );
     },
 
     createHTMLBlog: function(oData){
         return `<article class="DS_Article">
-            <h2><a href="?md=${oData.code}">${oData.title}</a></h2>
-            <p>${oData.description}</p>
+            <h2>${oData.title}</a></h2>
+            <p>
+                ${oData.description}<br/>
+                <a href="?md=${oData.code}">Lire d'avantage</a>
+            </p>
         </article>`;
     },
 
