@@ -1,6 +1,6 @@
 # Article de test
 
-> Ceci et un article de test afin de valider le bon fonctionnement du blog.
+> Ceci est un article de test afin de valider le bon fonctionnement du blog.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mattis pellentesque id nibh tortor id aliquet. Aliquam ut porttitor leo a diam. Penatibus et magnis dis parturient montes nascetur. A erat nam at lectus urna duis convallis. Accumsan tortor posuere ac ut consequat semper viverra. Lacus sed turpis tincidunt id. Massa sed elementum tempus egestas sed sed risus pretium. Varius duis at consectetur lorem donec massa sapien faucibus et. Eu mi bibendum neque egestas congue quisque egestas. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Aliquet porttitor lacus luctus accumsan tortor posuere. Augue interdum velit euismod in pellentesque massa placerat duis ultricies. Suspendisse faucibus interdum posuere lorem ipsum. Sem integer vitae justo eget magna fermentum iaculis eu. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Elit sed vulputate mi sit. Lorem dolor sed viverra ipsum nunc aliquet bibendum enim. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra. Vitae congue eu consequat ac felis donec.
 

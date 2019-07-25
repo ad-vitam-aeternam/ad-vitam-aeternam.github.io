@@ -6,15 +6,15 @@ const BLOG = {
             breaks: true        // Convert '\n' in paragraphs into <br>
         },
         oBlogMardown: {
-            title: 'Pensées',
-            description: 'Liste des pensées Ad Vitam Æternam',
-            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg'
+            title: 'Maux',
+            description: 'Liste des Maux Ad Vitam Æternam',
+            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3'
         },
         oHomeMarkdown: {
             title: '',
             description: 'Afin de me libérer de mes maux, il ne me reste qu\'une seule solution : je me dois de les écrire.',
             markdown: 'index.md',
-            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg'
+            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3'
         },
         sPrefixTitle: 'Ad Vitam Æternam',
         sMarkdownDirectory: 'datas/markdown/'

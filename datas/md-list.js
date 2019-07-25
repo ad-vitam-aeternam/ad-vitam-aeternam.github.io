@@ -1,8 +1,8 @@
 BLOG.aData = [
     {
-        title: 'Article de test',
-        description: 'Ceci est un article de test afin de valider le bon fonctionnement du blog.',
-        markdown: 'article-de-test.md',
-        image: 'https://images.pexels.com/photos/696680/pexels-photo-696680.jpeg'
+        title: '01 - Ennui',
+        description: 'Je la hais. Je me languille d\'impatience toute la journée afin d\'avoir un peu de temps pour moi, et quand ce moment est enfin à ma porté, elle se manifeste ...',
+        markdown: '01-ennui.md',
+        image: 'https://images.pexels.com/photos/2234623/pexels-photo-2234623.jpeg?auto=compress&cs=tinysrgb'
     }
 ];
