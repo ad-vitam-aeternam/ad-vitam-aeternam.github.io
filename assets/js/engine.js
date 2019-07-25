@@ -85,6 +85,7 @@ const BLOG = {
         this.aData.forEach( (oData) => {
             sHtml = this.createHTMLBlog(oData) + sHtml;
         } );
+        sHtml = '<h1>Maux</h1>' + sHtml;
         this.render( Object.assign( { html: sHtml }, this.oConfig.oBlogMardown) );
         this.activeNav(1);
     },
