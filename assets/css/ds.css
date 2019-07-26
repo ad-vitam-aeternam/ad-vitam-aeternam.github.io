@@ -103,6 +103,9 @@ blockquote.--line {
 	font-style: italic;
     border-left: 3px solid #999;
 }
+blockquote p {
+	margin: 0;
+}
 
 code {
 	background-color: #FF9;

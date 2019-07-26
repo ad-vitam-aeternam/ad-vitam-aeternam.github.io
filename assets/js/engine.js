@@ -61,6 +61,10 @@ const BLOG = {
                 this.redirect( hTarget.search );
             }
         }, false);
+
+        window.addEventListener('popstate', (oEvent) => {
+            Location.search && this.redirect( Location.search );
+        }, false);
     },
 
     extractQueryObject: function(sSearch){
@@ -119,7 +123,7 @@ const BLOG = {
 
     loadMarkdown: function(oMarkdown){
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0855',
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0915',
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
@@ -146,6 +150,8 @@ const BLOG = {
     render: function(oData){
         document.title = this.oConfig.sPrefixTitle + ( oData.title ? ' - ' + oData.title : '' );
         document.descripton = oData.descripton;
+        history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
+
         this.hImage.style.backgroundImage = "url('" + oData.image + "')";
         this.hMain.innerHTML = oData.html;
         this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
