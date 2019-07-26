@@ -159,4 +159,4 @@ const APP = {
     }
 };
 
-window.addEventListener('load', () => APP.initialize(), false);
+window.addEventListener('DOMContentLoaded', () => APP.initialize(), false);
