@@ -35,7 +35,7 @@ const APP = {
         this.getHTMLElement();
         this.parseData();
         this.handleEventListener();
-        Location.search && this.redirect(Location.search);
+        location.search && this.redirect(location.search);
     },
 
     getHTMLElement: function(){
