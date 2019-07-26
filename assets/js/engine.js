@@ -34,6 +34,7 @@ const BLOG = {
         this.getHTMLElement();
         this.parseData();
         this.handleEventListener();
+        Location.search && this.redirect(Location.search);
     },
 
     getHTMLElement: function(){
@@ -57,13 +58,7 @@ const BLOG = {
             if( hTarget && hTarget.tagName === 'A' && hTarget._target == null && !hTarget.classList.contains('--inactive') ){
                 oEvent.preventDefault();
                 oEvent.stopPropagation();
-
-                let oQuery = this.extractQueryObject(hTarget.search);
-                if( oQuery.md == 'blog' ){
-                    this.goToBlog();
-                } else {
-                    this.goTo( oQuery.md );
-                }
+                this.redirect( hTarget.search );
             }
         }, false);
     },
@@ -78,6 +73,15 @@ const BLOG = {
         } );
 
         return oQuery;
+    },
+
+    redirect: function(sSearch){
+        let oQuery = this.extractQueryObject(sSearch);
+        if( oQuery.md == 'blog' ){
+            this.goToBlog();
+        } else {
+            this.goTo( oQuery.md );
+        }
     },
 
     goToBlog: function(){
@@ -115,7 +119,7 @@ const BLOG = {
 
     loadMarkdown: function(oMarkdown){
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown,
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0845',
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
