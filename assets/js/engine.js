@@ -119,7 +119,7 @@ const BLOG = {
 
     loadMarkdown: function(oMarkdown){
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0845',
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0855',
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
