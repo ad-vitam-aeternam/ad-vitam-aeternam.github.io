@@ -1,14 +1,15 @@
-const BLOG = {
+const APP = {
 
     oConfig: {
         oMarkdownIt: {
             html: true,        // Enable HTML tags in source
             breaks: true        // Convert '\n' in paragraphs into <br>
         },
-        oBlogMardown: {
+        oListMardown: {
             title: 'Maux',
             description: 'Liste des Maux Ad Vitam Æternam',
-            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3'
+            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3',
+            code: 'list'
         },
         oHomeMarkdown: {
             title: '',
@@ -81,20 +82,20 @@ const BLOG = {
 
     redirect: function(sSearch){
         let oQuery = this.extractQueryObject(sSearch);
-        if( oQuery.md == 'blog' ){
-            this.goToBlog();
+        if( oQuery.md == 'list' ){
+            this.goToList();
         } else {
             this.goTo( oQuery.md );
         }
     },
 
-    goToBlog: function(){
+    goToList: function(){
         let sHtml = '';
         this.aData.forEach( (oData) => {
-            sHtml = this.createHTMLBlog(oData) + sHtml;
+            sHtml = this.createHTMLList(oData) + sHtml;
         } );
         sHtml = '<h1>Maux</h1>' + sHtml;
-        this.render( Object.assign( { html: sHtml }, this.oConfig.oBlogMardown) );
+        this.render( Object.assign( { html: sHtml }, this.oConfig.oListMardown) );
         this.activeNav(1);
     },
 
@@ -111,7 +112,7 @@ const BLOG = {
         } );
     },
 
-    createHTMLBlog: function(oData){
+    createHTMLList: function(oData){
         return `<article class="DS_Article">
             <h2>${oData.title}</a></h2>
             <p>
@@ -123,7 +124,7 @@ const BLOG = {
 
     loadMarkdown: function(oMarkdown){
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0915',
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0920',
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
@@ -158,4 +159,4 @@ const BLOG = {
     }
 };
 
-window.addEventListener('load', () => BLOG.initialize(), false);
+window.addEventListener('load', () => APP.initialize(), false);

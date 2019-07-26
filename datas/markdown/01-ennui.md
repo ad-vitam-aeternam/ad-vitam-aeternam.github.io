@@ -1,6 +1,6 @@
 # 01 - Ennui
 
->Ce maux est en cours d'édition et n'est encore qu'à l'état d'ébauche
+> Ce maux est en cours d'édition et n'est encore qu'à l'état d'ébauche
 
 Je *le* hais.
 
@@ -8,8 +8,8 @@ Je me languis d'impatience toute la journée afin d'avoir un peu de temps pour m
 
 Quand je *l*'apercois, une seule idée me vient en tête : m'occuper. Alors je sors mon téléphone et je joue, je lis et divague dans cette masse qu'est internet. Mais le résultat est toujours le même. Je ne fais que fermer les yeux sur son approche.
 
->L'ennui est une mauvaise herbe, mais aussi une épice qui fait digérer bien des choses.
->*La seconde venu du Christ - Johann Wolfgang von Goethe*
+> L'ennui est une mauvaise herbe, mais aussi une épice qui fait digérer bien des choses.
+> *La seconde venu du Christ - Johann Wolfgang von Goethe*
 
 Mais parfois, *il* m'est bénéfique. Mon esprit se guide vers sa soeur, la __créativité__. Couleurs, formes, ambiances, je pars en croisade vers de nouvelles idées, de nouvelle ébauche de design que je conçois dans mes pensées, *le* fesant reculer jusqu'à la prochaine fois.
 
