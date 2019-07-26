@@ -64,7 +64,7 @@ const APP = {
         }, false);
 
         window.addEventListener('popstate', (oEvent) => {
-            Location.search && this.redirect( Location.search );
+            location.search && this.redirect( location.search );
         }, false);
     },
 
