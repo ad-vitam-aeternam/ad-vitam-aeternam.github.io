@@ -124,7 +124,7 @@ const APP = {
 
     loadMarkdown: function(oMarkdown){
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0935',
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=260719_0940',
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
