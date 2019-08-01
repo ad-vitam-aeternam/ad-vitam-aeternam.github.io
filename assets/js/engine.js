@@ -90,11 +90,10 @@ const APP = {
     },
 
     goToList: function(){
-        let sHtml = '';
+        let sHtml = '<h1>Maux</h1>';
         this.aData.forEach( (oData) => {
-            sHtml = this.createHTMLList(oData) + sHtml;
+            sHtml += this.createHTMLList(oData);
         } );
-        sHtml = '<h1>Maux</h1>' + sHtml;
         this.render( Object.assign( { html: sHtml }, this.oConfig.oListMardown) );
         this.activeNav(1);
     },
