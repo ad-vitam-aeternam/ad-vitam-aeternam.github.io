@@ -12,7 +12,6 @@ const APP = {
     oMarkdownIt: null,
     aData: null,
     oMapData: {},
-    bFirstRender: true,
 
     hMain: null,
     hImage: null,
@@ -81,14 +80,14 @@ const APP = {
         this.aData.forEach( (oData) => {
             sHtml += this.createHTMLList(oData);
         } );
-        this.render( { html: sHtml }, true );
+        this.hMain.innerHTML += sHtml;
     },
 
     goTo: function(sSearch){
         const oQuery = this.extractQueryObject(sSearch),
             nIndex = this.oMapData[oQuery.md];
 
-        if( nIndex ){
+        if( nIndex != null ){
             this.loadMarkdown( this.aData[nIndex] ); 
         }
     },
@@ -132,23 +131,15 @@ const APP = {
         this.render( Object.assign( { html: this.oMarkdownIt.render(sResponse) }, oMarkdown) );
     },
 
-    render: function(oData, bAppend){
-        if( bAppend ){
-            this.hMain.innerHTML += oData.html;
-        } else {
-            document.title = this.oConfig.sPrefixTitle + ( oData.title ? ' - ' + oData.title : '' );
-            document.descripton = oData.descripton;
-            if( this.bFirstRender ){
-                this.bFirstRender = false;
-            } else {
-                history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
-            }
+    render: function(oData){
+        document.title = this.oConfig.sPrefixTitle + ( oData.title ? ' - ' + oData.title : '' );
+        document.descripton = oData.descripton;
+        history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
 
-            this.hImage.style.backgroundImage = "url('" + oData.image + "')";
-            this.hMain.innerHTML = oData.html;
-            this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
-            this.hContent.scrollTop = 0;
-        }
+        this.hImage.style.backgroundImage = "url('" + oData.image + "')";
+        this.hMain.innerHTML = oData.html;
+        this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
+        this.hContent.scrollTop = 0;
     }
 };
 
