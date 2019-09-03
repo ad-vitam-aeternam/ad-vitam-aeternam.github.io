@@ -22,6 +22,7 @@ const APP = {
     hMain: null,
     hImage: null,
     hLine: null,
+    hContent: null,
 
     initialize: function(){
         this.oMarkdownIt = window.markdownit( this.oConfig.oMarkdownIt );
@@ -35,6 +36,7 @@ const APP = {
         this.hMain = document.getElementsByTagName('main')[0];
         this.hImage = document.getElementsByClassName('DS_Image')[0];
         this.hLine = document.getElementsByClassName('DS_Footer__Text')[0];
+        this.hContent = document.getElementsByClassName('DS_Content__Scroll')[0];
     },
 
     parseData: function(){
@@ -56,7 +58,11 @@ const APP = {
         }, false);
 
         window.addEventListener('popstate', (oEvent) => {
-            location.search && this.redirect( location.search );
+            if( location.search ){
+                this.redirect( location.search );
+            } else {
+                location.reload();
+            }
         }, false);
     },
 
@@ -106,7 +112,7 @@ const APP = {
 
     loadMarkdown: function(oMarkdown){
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=010819_1200',
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=030919_1015',
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
@@ -146,6 +152,7 @@ const APP = {
             this.hMain.innerHTML = oData.html;
         }
         this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
+        this.hContent.scrollTop = 0;
     }
 };
 
