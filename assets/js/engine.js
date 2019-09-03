@@ -29,7 +29,11 @@ const APP = {
         this.getHTMLElement();
         this.parseData();
         this.handleEventListener();
-        this.redirect(location.search);
+        if( location.search ){
+            this.goTo( location.search );
+        } else {
+            this.createList();
+        }
     },
 
     getHTMLElement: function(){
@@ -50,16 +54,16 @@ const APP = {
     handleEventListener: function(){
         window.addEventListener('click', (oEvent) => {
             const hTarget = oEvent.target
-            if( hTarget && hTarget.tagName === 'A' && hTarget._target == null && !hTarget.classList.contains('--inactive') ){
+            if( hTarget && hTarget.tagName === 'A' && hTarget._target == null && !hTarget.classList.contains('--inactive') && hTarget.search ){
                 oEvent.preventDefault();
                 oEvent.stopPropagation();
-                this.redirect( hTarget.search );
+                this.goTo( hTarget.search );
             }
         }, false);
 
         window.addEventListener('popstate', (oEvent) => {
             if( location.search ){
-                this.redirect( location.search );
+                this.goTo( location.search );
             } else {
                 location.reload();
             }
@@ -77,15 +81,6 @@ const APP = {
         return oQuery;
     },
 
-    redirect: function(sSearch){
-        let oQuery = this.extractQueryObject(sSearch);
-        if( oQuery.md ){
-            this.goTo( oQuery.md );
-        } else {
-            this.createList();
-        }
-    },
-
     createList: function(){
         let sHtml = '';
         this.aData.forEach( (oData) => {
@@ -94,10 +89,13 @@ const APP = {
         this.render( Object.assign( { html: sHtml }, this.oConfig.oListMardown), true );
     },
 
-    goTo: function(sCode){
-        const nIndex = this.oMapData[sCode],
-            oMarkdown = this.aData[ nIndex == null ? -1 : nIndex ] || this.oConfig.oHomeMarkdown;
-        this.loadMarkdown(oMarkdown); 
+    goTo: function(sSearch){
+        const oQuery = this.extractQueryObject(sSearch),
+            nIndex = this.oMapData[oQuery.md];
+            
+        if( nIndex ){
+            this.loadMarkdown( this.aData[nIndex] ); 
+        }
     },
 
     createHTMLList: function(oData){
@@ -111,8 +109,11 @@ const APP = {
     },
 
     loadMarkdown: function(oMarkdown){
+        const oNow = new Date(),
+            sVersion = oNow.getDate() + ( oNow.getMonth() + 1 ) + oNow.getFullYear() + '_' + oNow.getHours() + oNow.getMinutes();
+
         this.ajax(
-            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=030919_1015',
+            this.oConfig.sMarkdownDirectory + oMarkdown.markdown + '?v=' + sVersion,
             (sResponse) => {
                 this.renderMarkdown(oMarkdown, sResponse);
             }
@@ -137,22 +138,22 @@ const APP = {
     },
 
     render: function(oData, bAppend){
-        document.title = this.oConfig.sPrefixTitle + ( oData.title ? ' - ' + oData.title : '' );
-        document.descripton = oData.descripton;
-        if( this.bFirstRender ){
-            this.bFirstRender = false;
-        } else {
-            history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
-        }
-
-        this.hImage.style.backgroundImage = "url('" + oData.image + "')";
         if( bAppend ){
             this.hMain.innerHTML += oData.html;
         } else {
+            document.title = this.oConfig.sPrefixTitle + ( oData.title ? ' - ' + oData.title : '' );
+            document.descripton = oData.descripton;
+            if( this.bFirstRender ){
+                this.bFirstRender = false;
+            } else {
+                history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
+            }
+
+            this.hImage.style.backgroundImage = "url('" + oData.image + "')";
             this.hMain.innerHTML = oData.html;
+            this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
+            this.hContent.scrollTop = 0;
         }
-        this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
-        this.hContent.scrollTop = 0;
     }
 };
 
