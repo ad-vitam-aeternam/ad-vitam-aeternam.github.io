@@ -5,11 +5,6 @@ const APP = {
             html: true,        // Enable HTML tags in source
             breaks: true        // Convert '\n' in paragraphs into <br>
         },
-        oListMardown: {
-            title: '',
-            description: 'Les années passent, mais les problèmes restent les mêmes : manque de confiance, lassitude, solitude, frustration, colère...',
-            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3'
-        },
         sPrefixTitle: 'Ad Vitam Æternam',
         sMarkdownDirectory: 'datas/markdown/'
     },
@@ -86,13 +81,13 @@ const APP = {
         this.aData.forEach( (oData) => {
             sHtml += this.createHTMLList(oData);
         } );
-        this.render( Object.assign( { html: sHtml }, this.oConfig.oListMardown), true );
+        this.render( { html: sHtml }, true );
     },
 
     goTo: function(sSearch){
         const oQuery = this.extractQueryObject(sSearch),
             nIndex = this.oMapData[oQuery.md];
-            
+
         if( nIndex ){
             this.loadMarkdown( this.aData[nIndex] ); 
         }
