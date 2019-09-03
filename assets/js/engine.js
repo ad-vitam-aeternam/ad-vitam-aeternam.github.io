@@ -6,15 +6,8 @@ const APP = {
             breaks: true        // Convert '\n' in paragraphs into <br>
         },
         oListMardown: {
-            title: 'Maux',
-            description: 'Liste des Maux Ad Vitam Æternam',
-            image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3',
-            code: 'list'
-        },
-        oHomeMarkdown: {
             title: '',
-            description: 'Afin de me libérer de mes maux, il ne me reste qu\'une seule solution : je me dois de les écrire.',
-            markdown: 'index.md',
+            description: 'Les années passent, mais les problèmes restent les mêmes : manque de confiance, lassitude, solitude, frustration, colère...',
             image: 'https://images.pexels.com/photos/931007/pexels-photo-931007.jpeg?auto=compress&cs=tinysrgb&dpr=3'
         },
         sPrefixTitle: 'Ad Vitam Æternam',
@@ -24,25 +17,24 @@ const APP = {
     oMarkdownIt: null,
     aData: null,
     oMapData: {},
+    bFirstRender: true,
 
     hMain: null,
     hImage: null,
     hLine: null,
-    hcNav: [],
 
     initialize: function(){
         this.oMarkdownIt = window.markdownit( this.oConfig.oMarkdownIt );
         this.getHTMLElement();
         this.parseData();
         this.handleEventListener();
-        location.search && this.redirect(location.search);
+        this.redirect(location.search);
     },
 
     getHTMLElement: function(){
         this.hMain = document.getElementsByTagName('main')[0];
         this.hImage = document.getElementsByClassName('DS_Image')[0];
         this.hLine = document.getElementsByClassName('DS_Footer__Text')[0];
-        this.hcNav = document.getElementsByClassName('DS_Nav__ItemLink');
     },
 
     parseData: function(){
@@ -69,46 +61,37 @@ const APP = {
     },
 
     extractQueryObject: function(sSearch){
-        const oQuery = {},
-            aQuery = sSearch.substring(1).split('&');
-
-        aQuery.forEach( (sQuery) => {
-            let aData = sQuery.split('=');
-            oQuery[aData[0]] = aData[1];
-        } );
-
+        const oQuery = {};
+        if( sSearch ){
+            sSearch.substring(1).split('&').forEach( (sQuery) => {
+                let aData = sQuery.split('=');
+                oQuery[aData[0]] = aData[1];
+            } );
+        }
         return oQuery;
     },
 
     redirect: function(sSearch){
         let oQuery = this.extractQueryObject(sSearch);
-        if( oQuery.md == 'list' ){
-            this.goToList();
-        } else {
+        if( oQuery.md ){
             this.goTo( oQuery.md );
+        } else {
+            this.createList();
         }
     },
 
-    goToList: function(){
-        let sHtml = '<h1>Maux</h1>';
+    createList: function(){
+        let sHtml = '';
         this.aData.forEach( (oData) => {
             sHtml += this.createHTMLList(oData);
         } );
-        this.render( Object.assign( { html: sHtml }, this.oConfig.oListMardown) );
-        this.activeNav(1);
+        this.render( Object.assign( { html: sHtml }, this.oConfig.oListMardown), true );
     },
 
     goTo: function(sCode){
         const nIndex = this.oMapData[sCode],
             oMarkdown = this.aData[ nIndex == null ? -1 : nIndex ] || this.oConfig.oHomeMarkdown;
         this.loadMarkdown(oMarkdown); 
-        this.activeNav( oMarkdown.title ? 1 : 0);
-    },
-
-    activeNav: function(nNav){
-        [].forEach.call(this.hcNav, (hNav, nIndex) => {
-            hNav.classList[ nNav == nIndex ? 'add' : 'remove' ]('--active');
-        } );
     },
 
     createHTMLList: function(oData){
@@ -147,13 +130,21 @@ const APP = {
         this.render( Object.assign( { html: this.oMarkdownIt.render(sResponse) }, oMarkdown) );
     },
 
-    render: function(oData){
+    render: function(oData, bAppend){
         document.title = this.oConfig.sPrefixTitle + ( oData.title ? ' - ' + oData.title : '' );
         document.descripton = oData.descripton;
-        history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
+        if( this.bFirstRender ){
+            this.bFirstRender = false;
+        } else {
+            history.pushState({}, document.title, location.origin + ( oData.code ? '?md=' + oData.code : '' ));
+        }
 
         this.hImage.style.backgroundImage = "url('" + oData.image + "')";
-        this.hMain.innerHTML = oData.html;
+        if( bAppend ){
+            this.hMain.innerHTML += oData.html;
+        } else {
+            this.hMain.innerHTML = oData.html;
+        }
         this.hLine.innerHTML = oData.title || this.oConfig.sPrefixTitle;
     }
 };

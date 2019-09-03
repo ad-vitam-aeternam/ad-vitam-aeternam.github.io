@@ -219,12 +219,6 @@ th:hover, td:hover {
 .DS_Header > * {
     flex: 0 0 auto;
 }
-.DS_Header__Logo {
-	border: 1px solid #000;
-	padding: 0.8rem;
-	text-decoration: none;
-    color: #000;
-}
 .DS_Header .DS_Nav {
     flex: 1 1 100%;
 }
@@ -259,11 +253,6 @@ th:hover, td:hover {
 
 .DS_Main {
     line-height: 2.4rem;
-}
-@media screen and (min-width: 1024px) {
-	.DS_Main {
-        padding-top: 3.2rem;
-    }
 }
 
 .DS_Footer {
@@ -318,11 +307,12 @@ th:hover, td:hover {
     border-color: #333;
 }
 
-.DS_Article {
+.DS_Introduction, .DS_Article {
     margin: 5rem 0;
 }
 .DS_Article a {
 	font-style: italic;
+	opacity: 0.75;
 }
 
 .DS_Blockquote__Author {
