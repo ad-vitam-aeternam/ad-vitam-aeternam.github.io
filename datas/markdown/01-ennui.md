@@ -1,6 +1,4 @@
-# 01 - Ennui
-
-Je *le* hais.
+# Je *le* hais.
 
 Je me languis d'impatience toute la journée afin d'avoir un peu de temps pour moi, et quand ce moment est enfin à ma porté, *il* se manifeste. Un moment d'égarement et *il* est là, devant moi, provocant et cruel. Toujours accompagné de ses __bourreaux__ : le vide, la mélancolie et la tristesse. Une fois en vue, impossible de *le* faire disparaitre, et plus j'y pense, plus ça présence se fait pesante. Odieux, *il* sourit presque de me voir en colère et souffrant. *Il* me dégoute.
 
